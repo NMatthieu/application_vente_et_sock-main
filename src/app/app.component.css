@@ -319,14 +319,6 @@ tr:hover {
     background-color: coral;        
 }
 
-/* input {
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 20%;
-} */
-
 @media screen and (max-width: 959px) {
     #imageHeader {
         width: 70%;
