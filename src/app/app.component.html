@@ -1,0 +1,128 @@
+<div class="body_screen" *ngIf="isLogin">
+  <div class="container desktop" id="container" #container>
+    <div class="form-container sign-up-container">
+      <div class="texte_opnening">
+        <h1>Bienvenue dans French Chic</h1>
+      </div>
+      <div class="form">
+        <input type="hidden" name="connexion" value="inscription">
+        <h2>Crée votre compte</h2>
+        <div class="social-container">
+        </div>
+        <span>Veuillez remplir les informations suivante :</span>
+        <input type="text" placeholder="Nom" [(ngModel)]="newUser.nom" required />
+        <input type="text" placeholder="Prénom" [(ngModel)]="newUser.prenom" required />
+        <input type="texte" placeholder="Pseudo" [(ngModel)]="newUser.login" required />
+        <input type="password" placeholder="mots de passe" [(ngModel)]="newUser.mdp" required />
+        <input type="password" placeholder="confirmation mot de passe" required />
+        <button type="submit" (click)="signUpUser()">S'enregistrer</button>
+        <button class="bouton-signIn" id="signInMobile" type="button" (click)="signInMobile()"
+          style="margin-top: 5%;">Se connecter</button>
+      </div>
+    </div>
+    <div class="form-container sign-in-container">
+      <div class="texte_opnening">
+        <h1>French Chic</h1>
+        <p>Connectez-vous pour accéder à votre compte et profiter de nos services.</p>
+      </div>
+      <div class="form">
+        <input type="hidden" name="connexion" value="login">
+        <h1>Se connecter</h1>
+        <input type="texte" placeholder="pseudo" [(ngModel)]="nom_input" required />
+        <input type="password" placeholder="mots de passe" [(ngModel)]="mdp_input" required />
+        <button type="submit" (click)="signInUser()" style="margin-top: 10%;">Se connecter</button>
+        <button class="bouton-signUp" id="signUpMobile" type="button" (click)="signUpButton_mobile()"
+          style="margin-top: 5%;">S'enregistrer</button>
+      </div>
+
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>French Chic</h1>
+          <p>Connectez-vous pour accéder à votre compte et profiter de nos services.</p>
+          <button class="ghost" id="signIn" (click)="signInButton()">Se conncter</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Bienvenue dans French Chic</h1>
+          <p>Entrez vos données personnelles et commencez votre voyage avec nous</p>
+          <button class="ghost" id="signUp" (click)="signUpButton()">S'enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="body_screen" *ngIf="isPerso">
+  <div id="booking" class="section">
+    <div class="section-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6" id="container">
+            <div class="shadow p-3 my-2 bg-white rounded">
+              <h1 style="text-align: center;margin-top: 5vh;">Bonjour {{userSession.nom}} {{userSession.prenom}}
+              </h1>
+              <h2>Produit du jour</h2>
+              <div style="overflow-x:auto;">
+                <table class="table" style="margin-left: 10vw;margin-top: 5vh;">
+                  <tr>
+                    <th>#</th>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Radio</td>
+                    <td>1000€</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="form">
+                <input type="number" [(ngModel)]="quantite" min="1" style="width: 20%;">
+                <button type="submit" (click)="ajoutPanier()">Ajouter</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="body_screen" *ngIf="isPanier">
+  <div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6" id="container">
+                    <div class="shadow p-3 my-2 bg-white rounded">
+                        <h1 style="text-align: center;margin-top: 5vh;">Votre panier</h1>
+                        <div style="overflow-x:auto;margin-top: 5vh;">
+                            <table style="margin-left: 10vw;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Produit</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Montant</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Radio</td>
+                                    <td>1000€</td>
+                                    <td>{{quantite}}</td>
+                                    <td>{{montant}}€</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="montant" style="text-align: center;margin-top: 5vh;">
+                            <h3>Montant panier</h3>
+                            <input type="text" value="{{ montant }}€" style="width: 20%;" readonly>
+                        </div>                             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
