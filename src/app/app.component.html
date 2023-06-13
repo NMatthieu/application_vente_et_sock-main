@@ -74,22 +74,23 @@
               </h1>
               <h2>Produit du jour</h2>
               <div style="overflow-x:auto;">
-                <table class="table" style="margin-top: 5vh;">
+                <table class="table center-table" style="margin-top: 5vh;">
                   <tr>
                     <th>#</th>
                     <th>Produit</th>
                     <th>Prix</th>
+                    <th>Quantité</th>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Radio</td>
-                    <td>1000€</td>
+                  <tr *ngFor="let produit of produits; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{produit.designation}}</td>
+                    <td>{{produit.prix}}€</td>
+                    <td><input class="ajout_chiffre" type="number" [(ngModel)]="produit.quantiteProduit" min="1"></td>
                   </tr>
                 </table>
               </div>
-              <div class="form">
-                <input class="ajout_chiffre" type="number" [(ngModel)]="quantite" min="1">
-                <button type="submit" (click)="ajoutPanier()">Ajouter produit</button>
+              <div class="form">                
+                <button type="submit" (click)="ajoutPanier()" style="margin-top: 10px;">Ajouter produit</button>
               </div>
             </div>
           </div>
@@ -108,27 +109,29 @@
                     <div class="shadow p-3 my-2 bg-white rounded">
                         <h1 style="text-align: center;margin-top: 5vh;">Votre panier</h1>
                         <div style="overflow-x:auto;margin-top: 5vh;">
-                            <table>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Produit</th>
-                                    <th>Prix</th>
-                                    <th>Quantité</th>
-                                    <th>Montant</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Radio</td>
-                                    <td>1000€</td>
-                                    <td>{{quantite}}</td>
-                                    <td>{{montant}}€</td>
-                                </tr>
+                            <table class="table center-table">
+                              <tr>
+                                  <th>#</th>
+                                  <th>Produit</th>
+                                  <th>Prix</th>
+                                  <th>Quantité</th>
+                                  <th>Montant</th>
+                              </tr>
+                              <tr *ngFor="let produit of produitsSelectionnes; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{produit.designation}}</td>
+                                <td>{{produit.prix}}€</td>
+                                <td>{{produit.quantiteProduit}}</td>
+                                <td>{{produit.prix * produit.quantiteProduit}}€</td>                                
+                              </tr>
                             </table>
                         </div>
                         <div class="montant" style="text-align: center;margin-top: 5vh;">
-                            <h3>Montant panier</h3>
-                            <input class="ajout_chiffre" type="text" value="{{ montant }}€" readonly>
-                        </div>                             
+                          <h3>Montant panier</h3>
+                          <input class="somme_total" type="text" value="{{ montant }}€" readonly>
+                          <br>
+                          <button type="submit" (click)="backPageAchat()" style="margin-top: 10px;">Revenir sur le produit</button>
+                          </div>                             
                     </div>
                 </div>
             </div>

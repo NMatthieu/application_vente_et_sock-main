@@ -167,7 +167,7 @@ input {
 }
 
 .ajout_chiffre{
-    width: 20%;
+    width: 100%;
 }
 
 @keyframes show {
@@ -350,6 +350,15 @@ tr:hover {
   }
   
 
+  .center-table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .somme_total{
+    width: 20%;
+  }
+
 @media screen and (max-width: 959px) {
     #imageHeader {
         width: 70%;
@@ -404,12 +413,15 @@ tr:hover {
      }
 
      .ajout_chiffre{
-        width: 50%;
+        width: 100%;
     }
 
     table {
         width: 67vw;
         margin-left: 16vw;
       }
-    
+      
+      .somme_total{
+        width: 20%;
+      }
 }

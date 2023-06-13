@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from './user.model';
+import { Produit } from './produit.model';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,8 @@ import { User } from './user.model';
 export class AppComponent implements OnInit{
   @ViewChild('container') container!: ElementRef;
 
-  isLogin: boolean = true;
-  isPerso: boolean = false;
+  isLogin: boolean = false;
+  isPerso: boolean = true;
   isPanier: boolean = false;
   isErrorLogin: boolean = false;
   isErrorAjout: boolean = false;
@@ -19,11 +20,18 @@ export class AppComponent implements OnInit{
   prenom: string = '';
   login: string = '';
   mdp: string = '';
+
+  designation!: string;
+  prix!: number;
+  quantiteProduit!: number;
+
   nom_input!: string;
   mdp_input!: string;
   newUser: User = new User();
   userSession: User = new User();
   users: Array<User> = [];
+  produits: Array<Produit> = [];
+  produitsSelectionnes: Produit[] = [];
 
   quantite: number = 0;
   montant: number = 0;
@@ -50,8 +58,29 @@ export class AppComponent implements OnInit{
         prenom: 'Durant',
         login: 'durant',
         mdp: 'durant'
+      }, 
+      {
+        nom: 'Kevin',
+        prenom: 'Durant',
+        login: 'ww',
+        mdp: 'ww'
       },      
     ];
+
+    this.produits = [      
+      {
+        designation: 'Radion',
+        prix: 1000,
+        quantiteProduit: 0,
+        montantProduit: 0
+      },
+      {
+        designation: 'Micros',
+        prix: 2000,
+        quantiteProduit: 0,
+        montantProduit: 0
+      }      
+    ]
   }
  
   signUpButton(){
@@ -101,11 +130,34 @@ export class AppComponent implements OnInit{
   }
 
   ajoutPanier(){
-    if(this.quantite > 0){
+    this.produits.forEach(produit => {
+      const index = this.produitsSelectionnes.findIndex(p => p.designation === produit.designation);
+      if (produit.quantiteProduit > 0) {
+        if (index === -1) {
+          this.produitsSelectionnes.push(produit);
+        } else {
+          if (produit.quantiteProduit === 0) {
+            this.produitsSelectionnes.splice(index, 1);
+          } else {
+            this.produitsSelectionnes[index].quantiteProduit = produit.quantiteProduit;
+          }
+        }
+      } else {
+        if (index !== -1) {
+          this.produitsSelectionnes.splice(index, 1);
+        }
+      }
+    });
+    
+
+    if(this.produitsSelectionnes.length > 0){
+      this.montant = this.produitsSelectionnes.reduce((total, produit) => {
+        return total + (produit.prix * produit.quantiteProduit);
+      }, 0);
+      
       this.isLogin = false;
       this.isPerso = false;
-      this.isPanier = true;
-      this.montant = this.quantite * 1000;
+      this.isPanier = true;      
       this.isErrorAjout = false;
     }
     else{
@@ -114,5 +166,12 @@ export class AppComponent implements OnInit{
       this.isPanier = false;
       this.isErrorAjout = true;
     }
+  }
+
+  backPageAchat(){
+    this.isLogin = false;
+    this.isPerso = true;
+    this.isPanier = false;
+    this.isErrorAjout = false;
   }
 }
