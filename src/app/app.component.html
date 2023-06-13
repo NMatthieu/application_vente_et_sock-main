@@ -1,3 +1,13 @@
+<div class="error-message" *ngIf="isErrorLogin">
+  <h2>Erreur de connexion</h2>
+  <p>Identifiant ou mot de passe incorrect.</p>
+</div>
+
+<div class="error-message" *ngIf="isErrorAjout">
+  <h2>Erreur ajout panier</h2>
+  <p>Il faut au moins 1 produit</p>
+</div>
+
 <div class="body_screen" *ngIf="isLogin">
   <div class="container desktop" id="container" #container>
     <div class="form-container sign-up-container">
@@ -64,7 +74,7 @@
               </h1>
               <h2>Produit du jour</h2>
               <div style="overflow-x:auto;">
-                <table class="table" style="margin-left: 10vw;margin-top: 5vh;">
+                <table class="table" style="margin-top: 5vh;">
                   <tr>
                     <th>#</th>
                     <th>Produit</th>
@@ -78,8 +88,8 @@
                 </table>
               </div>
               <div class="form">
-                <input type="number" [(ngModel)]="quantite" min="1" style="width: 20%;">
-                <button type="submit" (click)="ajoutPanier()">Ajouter</button>
+                <input class="ajout_chiffre" type="number" [(ngModel)]="quantite" min="1">
+                <button type="submit" (click)="ajoutPanier()">Ajouter produit</button>
               </div>
             </div>
           </div>
@@ -98,7 +108,7 @@
                     <div class="shadow p-3 my-2 bg-white rounded">
                         <h1 style="text-align: center;margin-top: 5vh;">Votre panier</h1>
                         <div style="overflow-x:auto;margin-top: 5vh;">
-                            <table style="margin-left: 10vw;">
+                            <table>
                                 <tr>
                                     <th>#</th>
                                     <th>Produit</th>
@@ -117,7 +127,7 @@
                         </div>
                         <div class="montant" style="text-align: center;margin-top: 5vh;">
                             <h3>Montant panier</h3>
-                            <input type="text" value="{{ montant }}€" style="width: 20%;" readonly>
+                            <input class="ajout_chiffre" type="text" value="{{ montant }}€" readonly>
                         </div>                             
                     </div>
                 </div>

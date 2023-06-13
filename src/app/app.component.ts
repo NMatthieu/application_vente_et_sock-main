@@ -12,6 +12,8 @@ export class AppComponent implements OnInit{
   isLogin: boolean = true;
   isPerso: boolean = false;
   isPanier: boolean = false;
+  isErrorLogin: boolean = false;
+  isErrorAjout: boolean = false;
 
   nom: string = '';
   prenom: string = '';
@@ -48,8 +50,7 @@ export class AppComponent implements OnInit{
         prenom: 'Durant',
         login: 'durant',
         mdp: 'durant'
-      },
-      
+      },      
     ];
   }
  
@@ -70,7 +71,7 @@ export class AppComponent implements OnInit{
   }
 
   signInMobile(){
-
+    this.container.nativeElement.classList.remove("right-panel-active");
   }
 
   signUpMobile(){
@@ -85,23 +86,33 @@ export class AppComponent implements OnInit{
       this.mdp_input = '';
       this.isLogin = false;
       this.isPerso = true;
+      this.isErrorLogin = false;
     } else {
-      console.log('Utilisateur non trouvé');
+      this.isErrorLogin = true;
     }
   }
 
   signUpUser(){
     this.users.push(this.newUser);
     this.userSession = this.newUser;
-    this.isLogin = false;
-    this.isPerso = true;
+    this.isLogin = true;
+    this.isErrorLogin = false;
+    this.signInButton();
   }
 
   ajoutPanier(){
-    console.log("ajouteroooo");
-    this.isLogin = false;
-    this.isPerso = false;
-    this.isPanier = true;
-    this.montant = this.quantite * 1000;
+    if(this.quantite > 0){
+      this.isLogin = false;
+      this.isPerso = false;
+      this.isPanier = true;
+      this.montant = this.quantite * 1000;
+      this.isErrorAjout = false;
+    }
+    else{
+      this.isLogin = false;
+      this.isPerso = true;
+      this.isPanier = false;
+      this.isErrorAjout = true;
+    }
   }
 }
